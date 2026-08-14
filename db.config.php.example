@@ -1,0 +1,10 @@
+<?php
+
+return [
+    // Copy this file to includes/db.config.php on shared hosting
+    // when environment variables are unavailable.
+    'dbHost' => 'sql###.epizy.com',
+    'dbUser' => 'epiz_########',
+    'dbPass' => 'your_db_password',
+    'dbName' => 'epiz_########',
+];

@@ -1,0 +1,35 @@
+# OS/editor noise
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Local env/config overrides
+.env
+.env.*
+*.local.php
+includes/db.config.php
+
+# Runtime logs and temp files
+*.log
+*.tmp
+*.swp
+
+# Test outputs and local scratch files
+test_*.html
+test_*.txt
+
+# User-uploaded/generated assets (keep directories, ignore contents)
+assets/img/properties/*
+assets/img/users/*
+assets/profile/*
+!assets/img/properties/.gitkeep
+!assets/img/users/.gitkeep
+!assets/profile/.gitkeep
+
+# Optional database dumps
+*.sql
+*.sql.gz
+
+# Node artifacts if tooling is added later
+node_modules/
