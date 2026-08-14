@@ -1,56 +1,22 @@
 <?php
 session_start();
 
-function digihome_env($keys, $default = '') {
-    $keyList = is_array($keys) ? $keys : [$keys];
-    foreach ($keyList as $key) {
-        $value = getenv($key);
-        if ($value !== false && $value !== '') {
-            return $value;
-        }
-        if (isset($_ENV[$key]) && $_ENV[$key] !== '') {
-            return $_ENV[$key];
-        }
-        if (isset($_SERVER[$key]) && $_SERVER[$key] !== '') {
-            return $_SERVER[$key];
-        }
-    }
-
-    return $default;
-}
-
-function digihome_host_looks_local($host) {
-    $host = strtolower(trim((string) $host));
-    if ($host === '' || $host === 'localhost' || $host === '127.0.0.1' || $host === '::1') {
-        return true;
-    }
-
-    return substr($host, -6) === '.local';
-}
-
-// Prefer env-driven DB config in production hosting while keeping local XAMPP defaults.
-$httpHost = (string) ($_SERVER['HTTP_HOST'] ?? '');
-$appEnv = strtolower((string) digihome_env(['DIGIHOME_APP_ENV', 'APP_ENV'], digihome_host_looks_local($httpHost) ? 'local' : 'production'));
-$isProduction = in_array($appEnv, ['production', 'prod', 'live'], true);
-
-$dbHost = (string) digihome_env(['DIGIHOME_DB_HOST', 'DB_HOST'], 'localhost');
-$dbUser = (string) digihome_env(['DIGIHOME_DB_USER', 'DB_USER'], $isProduction ? '' : 'root');
-$dbPass = (string) digihome_env(['DIGIHOME_DB_PASS', 'DB_PASS'], '');
-$dbName = (string) digihome_env(['DIGIHOME_DB_NAME', 'DB_NAME'], $isProduction ? '' : 'digihome');
-
-// Optional host-level override for shared hosting that cannot set env vars.
-// Expected file shape:
-// <?php return ['dbHost' => '...', 'dbUser' => '...', 'dbPass' => '...', 'dbName' => '...'];
+// Database connection is configured from the production credentials file only.
+// This file must exist on the host and must not fall back to local placeholder values.
 $dbConfigFile = __DIR__ . '/db.config.php';
+$dbConfig = [];
+
 if (is_file($dbConfigFile)) {
-    $dbOverride = include $dbConfigFile;
-    if (is_array($dbOverride)) {
-        $dbHost = (string) ($dbOverride['dbHost'] ?? $dbHost);
-        $dbUser = (string) ($dbOverride['dbUser'] ?? $dbUser);
-        $dbPass = (string) ($dbOverride['dbPass'] ?? $dbPass);
-        $dbName = (string) ($dbOverride['dbName'] ?? $dbName);
+    $loadedConfig = include $dbConfigFile;
+    if (is_array($loadedConfig)) {
+        $dbConfig = $loadedConfig;
     }
 }
+
+$dbHost = (string) ($dbConfig['dbHost'] ?? '');
+$dbUser = (string) ($dbConfig['dbUser'] ?? '');
+$dbPass = (string) ($dbConfig['dbPass'] ?? '');
+$dbName = (string) ($dbConfig['dbName'] ?? '');
 
 $conn = null;
 
@@ -351,6 +317,10 @@ function connect_db() {
 
     if ($conn !== null) {
         return $conn;
+    }
+
+    if ($dbHost === '' || $dbUser === '' || $dbName === '') {
+        throw new RuntimeException('Database configuration is missing. Ensure includes/db.config.php exists with the live InfinityFree DB credentials.');
     }
 
     try {
