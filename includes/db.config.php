@@ -1,40 +1,24 @@
 <?php
-session_start();
-
-$dbConfig = [
-    'dbHost' => 'sql200.infinityfree.com',
-    'dbUser' => 'if0_42656623',
-    'dbPass' => 'aUfBuHBil1UgJw',
-    'dbName' => 'if0_42656623_digihome',
-];
-$dbHost = (string) ($dbConfig['dbHost'] ?? '');
-$dbUser = (string) ($dbConfig['dbUser'] ?? '');
-$dbPass = (string) ($dbConfig['dbPass'] ?? '');
-$dbName = (string) ($dbConfig['dbName'] ?? '');
-
-$conn = null;
+$dbHost = 'sql200.infinityfree.com';
+$dbUser = 'if0_42656623';
+$dbPass = 'aUfBuHBil1UgJw';
+$dbName = 'if0_42656623_digihome';
 
 function connect_db() {
-    global $conn, $dbHost, $dbUser, $dbPass, $dbName;
+    global $dbHost, $dbUser, $dbPass, $dbName;
+    static $conn = null;
 
-    if ($conn !== null) {
+    if ($conn instanceof mysqli) {
         return $conn;
     }
 
-    if ($dbHost === '' || $dbUser === '' || $dbName === '') {
-        throw new RuntimeException('Database configuration is missing. Ensure includes/db.config.php exists with the live InfinityFree DB credentials.');
+    $conn = new mysqli($dbHost, $dbUser, $dbPass, $dbName);
+    if ($conn->connect_error) {
+        die('Database connection failed: ' . $conn->connect_error);
     }
 
-    try {
-        $conn = new mysqli($dbHost, $dbUser, $dbPass, $dbName);
-        if ($conn->connect_error) {
-            throw new Exception($conn->connect_error);
-        }
-        $conn->set_charset('utf8mb4');
-    } catch (Exception $e) {
-        $conn = null;
-    }
-
+    $conn->set_charset('utf8mb4');
     return $conn;
 }
-require_once __DIR__ . '/site_helpers.php';
+
+connect_db();
