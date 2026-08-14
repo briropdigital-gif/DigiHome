@@ -21,7 +21,7 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           # Uploads everything from the repo root into /DigiHome/ on the server
           local-dir: ./
-          server-dir: /DigiHome/
+          server-dir: /htdocs/DigiHome/
           # Skip files that should not be on the server
           exclude: |
             **/.git*
