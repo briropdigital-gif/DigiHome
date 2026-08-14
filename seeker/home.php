@@ -1,5 +1,5 @@
 <?php
-require_once dirname(__DIR__) . '/includes/db.php';
+require_once dirname(__DIR__) . '/includes/db.config.php';
 
 $properties = get_properties();
 $featured = array_slice($properties, 0, 3);

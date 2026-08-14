@@ -1,5 +1,5 @@
 <?php
-require_once dirname(__DIR__) . '/includes/db.php';
+require_once dirname(__DIR__) . '/includes/db.config.php';
 
 $id = (int)($_GET['id'] ?? 0);
 $property = get_property_by_id($id);

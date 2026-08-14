@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/db.php';
+require_once __DIR__ . '/db.config.php';
 
 $role = canonical_role((string) ($_GET['role'] ?? ''));
 $accountId = (int) ($_GET['account'] ?? 0);

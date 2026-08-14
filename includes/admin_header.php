@@ -1,5 +1,5 @@
 <?php
-require_once dirname(__DIR__) . '/includes/db.php';
+require_once dirname(__DIR__) . '/includes/db.config.php';
 
 $activeUser = current_user();
 $pageTitle = $pageTitle ?? 'DigiHome | Administration';

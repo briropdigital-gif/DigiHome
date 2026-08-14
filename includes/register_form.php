@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/db.php';
+require_once __DIR__ . '/db.config.php';
 
 $selectedRole = canonical_role($selectedRole ?? 'property_seeker');
 if (!is_registerable_role($selectedRole)) {

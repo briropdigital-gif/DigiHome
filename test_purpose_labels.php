@@ -1,5 +1,5 @@
 <?php
-require 'includes/db.php';
+require 'includes/db.config.php';
 
 $purposes = ['sale', 'rent', 'lease', 'hire_purchase', 'airbnb', 'hotel_booking', 'auction'];
 foreach ($purposes as $p) {

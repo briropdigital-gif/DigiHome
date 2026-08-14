@@ -1,5 +1,5 @@
 <?php
-require_once dirname(__DIR__) . '/includes/db.php';
+require_once dirname(__DIR__) . '/includes/db.config.php';
 
 $user = current_user();
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {

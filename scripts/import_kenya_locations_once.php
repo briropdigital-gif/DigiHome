@@ -1,5 +1,5 @@
 <?php
-require_once dirname(__DIR__) . '/includes/db.php';
+require_once dirname(__DIR__) . '/includes/db.config.php';
 
 $datasetPath = dirname(__DIR__) . '/data/kenya_counties_subcounties_wards_official.json';
 if (!is_file($datasetPath) || !is_readable($datasetPath)) {

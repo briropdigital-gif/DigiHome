@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/db.php';
+require_once __DIR__ . '/db.config.php';
 $scope = (string) ($_GET['scope'] ?? 'current');
 $role = canonical_role((string) ($_GET['role'] ?? (current_user()['role'] ?? '')));
 

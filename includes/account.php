@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/db.php';
+require_once __DIR__ . '/db.config.php';
 
 $pageTitle = 'DigiHome | Account Access';
 $pageDescription = 'Select login or registration and continue through the correct role account flow.';

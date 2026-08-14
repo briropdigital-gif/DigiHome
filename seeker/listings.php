@@ -1,5 +1,5 @@
 <?php
-require_once dirname(__DIR__) . '/includes/db.php';
+require_once dirname(__DIR__) . '/includes/db.config.php';
 
 $pageTitle = 'DigiHome | Listings';
 $pageDescription = 'Explore verified listings, filter by listing intent, and discover properties across DigiHome.';
