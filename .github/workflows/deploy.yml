@@ -1,0 +1,35 @@
+name: Deploy to InfinityFree
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Deploy via FTP to InfinityFree
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          # Uploads everything from the repo root into /DigiHome/ on the server
+          local-dir: ./
+          server-dir: /DigiHome/
+          # Skip files that should not be on the server
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/node_modules/**
+            test_*.html
+            test_*.txt
+            test_*.php
+            .env
+            .env.*
+            includes/db.config.php
