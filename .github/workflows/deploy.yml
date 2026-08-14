@@ -33,4 +33,3 @@ jobs:
             test_*.php
             .env
             .env.*
-            includes/db.config.php
