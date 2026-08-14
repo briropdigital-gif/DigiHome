@@ -17,7 +17,7 @@ include dirname(__DIR__) . '/includes/seeker_header.php';
     <div class="hero-grid">
         <div>
             <span class="badge badge-success">Property Seeker Home</span>
-            <h1>Get the right property with confidence.</h1>
+            <h1>Find the right property with confidence.</h1>
             <p>Discover verified listings, compare options quickly, and unlock trusted details only when you are ready.</p>
             <div class="inline-actions" style="margin-top: 16px;">
                 <a class="primary-button" href="/DigiHome/seeker/listings.php">Browse Listings</a>
