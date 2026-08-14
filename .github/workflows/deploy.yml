@@ -19,9 +19,9 @@ jobs:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          # Uploads everything from the repo root into /DigiHome/ on the server
+          # Uploads everything from the repo root into /htdocs/DigiHome/ on the server
           local-dir: ./
-          server-dir: /DigiHome/
+          server-dir: /htdocs/DigiHome/
           dangerous-clean-slate: true
           # Skip files that should not be on the server
           exclude: |
